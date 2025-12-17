@@ -1,0 +1,618 @@
+:root {
+  --bg: #0b1220; --panel: #121a2b; --text: #e6f1ff; --muted:#a5b4cf;
+  --primary:#7c3aed; --accent:#06b6d4; --success:#22c55e; --error:#ef4444;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box} body.theme{margin:0;background:var(--bg);color:var(--text)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#0b1424;border-bottom:1px solid rgba(255,255,255,.06)}
+.brand{color:var(--text);text-decoration:none;font-weight:700}
+.nav a{color:var(--muted);margin-left:16px;text-decoration:none}
+.btn{border:1px solid rgba(255,255,255,.1);padding:10px 14px;border-radius:14px;text-decoration:none;display:inline-block;background:linear-gradient(135deg, rgba(124,58,237,.15), rgba(6,182,212,.15));color:var(--text)}
+.btn.primary{background:linear-gradient(135deg, var(--primary), var(--accent));border:none}
+.container{max-width:1100px;margin:32px auto;padding:0 16px}
+.hero{text-align:center;padding:48px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:#0f1827;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.meta{display:flex;gap:12px;color:var(--muted);font-size:14px;margin:8px 0 12px}
+.auth-card{max-width:420px;margin:0 auto;background:var(--panel);padding:24px;border-radius:20px;box-shadow:var(--shadow)}
+label{display:block;margin:12px 0 6px;color:var(--muted)}
+input,textarea,select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#0b1322;color:var(--text)}
+table{width:100%;border-collapse:collapse} th,td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left}
+.flash{position:fixed;right:16px;top:72px;display:grid;gap:10px}.flash-item{padding:10px 14px;border-radius:12px}
+.flash-item.success{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.3)} .flash-item.error{background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.3)}
+.dash .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:18px}
+.stat{background:var(--panel);padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,.08)}
+.footer{text-align:center;color:var(--muted);padding:24px;border-top:1px solid rgba(255,255,255,.08);margin-top:48px}
+.hero--flash{position:relative;padding:72px 0 36px;text-align:center}
+.hero__badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.35);margin-bottom:12px}
+.hero__title{font-size: clamp(28px, 5vw, 48px);margin:8px 0 10px}
+.hero__subtitle{color:var(--muted);max-width:780px;margin:0 auto 18px}
+.grad{background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0 10px}
+.hero__stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 0}
+.stat-bubble{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px}
+.stat-bubble span{font-weight:700}
+
+
+/* marquee ticker */
+.ticker{overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-top:16px}
+.ticker__track{display:flex;gap:40px;padding:10px 0;animation:marquee 20s linear infinite;white-space:nowrap}
+.ticker__track span{opacity:.9}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.badge{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;color:var(--muted)}
+
+
+.section-title{text-align:center;margin:32px 0 12px}
+.features .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.feat-card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;min-height:140px}
+.features__cta{display:flex;gap:12px;justify-content:center;margin-top:14px}
+
+
+.how{margin-top:14px}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:0;margin:0}
+.steps li{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}
+.steps li span{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));margin-right:8px}
+.steps li{display:flex;align-items:center}
+
+
+.social .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.social blockquote{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;margin:0}
+.social blockquote span{display:block;color:var(--muted);margin-top:6px}
+
+
+.faq details{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;margin:8px 0}
+.faq summary{cursor:pointer}
+
+
+.final-cta{margin:22px 0 8px;text-align:center}
+
+
+/* subtle animated background lights */
+body.theme{
+background:
+radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.12), transparent),
+radial-gradient(1200px 600px at 90% 10%, rgba(6,182,212,.08), transparent),
+var(--bg);
+}
+
+/* Dashboard upgrades */
+.dash-header{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:12px}
+.dash-title{margin:0}
+.dash-sub{color:var(--muted);margin:4px 0 0}
+.dash-actions .btn{margin-left:8px}
+
+.stats-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:16px}
+.stat h3{margin:8px 0 0}
+.stat-actions{display:flex;gap:8px;margin-top:10px}
+.btn.mini{padding:6px 10px;border-radius:10px;font-size:14px}
+
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:10px 0 20px}
+.qcard{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;text-align:left;color:var(--text);cursor:pointer}
+.qcard:hover{transform:translateY(-2px);transition:transform .15s ease}
+.qicon{font-size:22px;margin-bottom:6px}
+.qtitle{font-weight:700}
+.qsub{color:var(--muted);font-size:13px}
+
+.sim-dev details{margin:10px 0;background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px}
+
+.tabs{display:flex;gap:10px;margin:10px 0 6px}
+.tab-btn{background:#0e1728;border:1px solid rgba(255,255,255,.08);color:var(--text);
+  padding:8px 12px;border-radius:10px;cursor:pointer}
+.tab-btn.active{background:linear-gradient(135deg,var(--primary),var(--accent));border:none}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.zebra tbody tr:nth-child(odd){background:rgba(255,255,255,.02)}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+.muted{color:var(--muted)}
+
+/* Auth page: divider + Google button */
+.auth-sep{
+  display:flex; align-items:center; gap:10px;
+  margin:14px 0;
+}
+.auth-sep span{
+  flex:1; height:1px; background:rgba(255,255,255,.12);
+}
+.auth-sep em{
+  color:var(--muted); font-style:normal; font-size:14px;
+}
+
+.btn-google{
+  display:flex; align-items:center; justify-content:center;
+  gap:10px; width:100%;
+  background:#0b1322;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px; padding:12px 14px;
+  text-decoration:none; color:var(--text);
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.btn-google:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.24);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.btn-google:active{ transform: translateY(0); }
+
+.g-icon{
+  display:inline-grid; place-items:center;
+  width:28px; height:28px; border-radius:50%;
+  background:#fff;
+}
+.g-label{ font-weight:600; }
+
+.auth-note{
+  text-align:center; color:var(--muted); margin-top:10px;
+}
+.auth-note a{ color:var(--text); text-decoration:underline; }
+
+/* Popup modal */
+.modal.hidden{display:none}
+.modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center}
+.modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px)}
+.modal__card{
+  position:relative; width:min(520px,92vw); background:#0f1827;
+  border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:20px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5); animation:pop .18s ease-out
+}
+@keyframes pop{from{transform:scale(.96);opacity:0} to{transform:scale(1);opacity:1}}
+.modal__close{
+  position:absolute; right:10px; top:10px; width:34px; height:34px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.15); background:#0b1322; color:#fff; cursor:pointer
+}
+.modal__badge{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.35); margin-bottom:8px}
+.modal__title{margin:6px 0 4px}
+.modal__sub{color:var(--muted); margin:0 0 12px}
+
+/* Reuse Google button styles */
+.btn-google{
+  display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+  background:#0b1322; border:1px solid rgba(255,255,255,.14);
+  border-radius:14px; padding:12px 14px; text-decoration:none; color:var(--text);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.btn-google:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.24); box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.g-icon{ display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#fff }
+.g-label{ font-weight:600 }
+
+.modal__google{ margin:8px 0 10px }
+.modal__row{ display:flex; gap:10px; flex-wrap:wrap }
+/* Center auth form buttons */
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center; /* Center content horizontally */
+}
+
+.auth-card form input {
+  width: 100%; /* Keep inputs full width — clean */
+}
+
+.auth-card .btn.primary {
+  width: 100%;         /* Make the Sign in / Sign up button consistent */
+  max-width: 260px;    /* Prevent too wide stretch */
+  text-align: center;
+}
+/* Keep form labels left aligned */
+.auth-card form label {
+  width: 100%;
+  text-align: left;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Keep inputs full width */
+.auth-card form input {
+  width: 100%;
+}
+
+/* Center buttons only */
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.auth-card form .btn.primary {
+  width: 100%;
+  max-width: 260px;
+  text-align: center;
+}
+
+/* Center Google button too */
+.btn-google {
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Keep labels left-aligned and full-width inputs */
+.auth-form label{
+  display:block;
+  text-align:left;        /* left alignment as requested */
+  margin:12px 0 6px;
+  color:var(--muted);
+}
+.auth-form input{
+  width:100%;
+}
+
+/* Center the primary submit button area */
+.form-actions{
+  display:flex;
+  justify-content:center; /* center the button */
+  margin-top:14px;
+}
+
+/* Center the Google button row too (while button keeps its intrinsic width) */
+.center-row{
+  display:flex;
+  justify-content:center;
+  margin-top:10px;
+}
+
+/* Make Google button shrink to content so it truly centers */
+.btn-google{
+  width:auto;             /* override earlier 100% if set */
+  min-width: 260px;       /* looks nice, tweak as you like */
+}
+/* =========================================
+   MERGED SHOP STYLES (Add to bottom of style.css)
+   ========================================= */
+
+/* --- Coin Selector --- */
+.coin-grid { 
+    display: flex; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+    margin-bottom: 20px; 
+    justify-content: center;
+}
+.coin-card input { 
+    display: none; 
+}
+.coin-box { 
+    background: #334155; 
+    padding: 10px 25px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    border: 1px solid transparent; 
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.coin-card input:checked + .coin-box { 
+    background: #2563eb; 
+    border-color: #60a5fa; 
+    color: white; 
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+}
+
+/* --- Shop Cards (Plans & Tools) --- */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+    gap: 20px; 
+    margin-bottom: 40px; 
+}
+.card { 
+    background: #1e293b; 
+    padding: 25px; 
+    border-radius: 12px; 
+    text-align: center; 
+    position: relative; 
+    border: 1px solid #334155; 
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #475569;
+}
+
+/* --- Badges --- */
+.badge { 
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    font-size: 0.75rem; 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    background: #eab308; 
+    color: black; 
+    font-weight: bold;
+}
+.badge.tool { 
+    background: #94a3b8; 
+}
+
+/* --- Price & Buttons --- */
+.price { 
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    margin: 15px 0; 
+    color: #fff;
+}
+.price-lg { 
+    font-size: 3rem; 
+    color: #22c55e; 
+    font-weight: bold; 
+    margin: 20px 0; 
+}
+
+/* --- Payment Page Styles --- */
+.pay-card { 
+    max-width: 500px; 
+    margin: 40px auto; 
+    background: #1e293b; 
+    padding: 30px; 
+    border-radius: 15px; 
+    text-align: center; 
+    border: 1px solid #334155; 
+}
+.addr-box { 
+    background: #0f172a; 
+    padding: 15px; 
+    font-family: 'Courier New', monospace; 
+    word-break: break-all; 
+    margin: 15px 0; 
+    border-radius: 8px; 
+    border: 1px dashed #475569; 
+    color: #cbd5e1; 
+}
+
+/* --- Verify & Success Alerts --- */
+.alert { 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border-radius: 8px; 
+}
+.alert.error { 
+    background: rgba(239, 68, 68, 0.2); 
+    border: 1px solid #ef4444; 
+    color: #fca5a5; 
+}
+.alert.success { 
+    background: rgba(34, 197, 94, 0.2); 
+    border: 1px solid #22c55e; 
+    color: #86efac; 
+}
+/* --- NEW NAVIGATION STYLES --- */
+
+/* Reset old nav styles if necessary */
+.nav { display: none; } /* Hides old header class if it exists */
+
+.nav-container {
+  background: rgba(11, 18, 32, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Brand */
+.brand {
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* Desktop Menu */
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.nav-desktop a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.nav-desktop a:hover {
+  color: #fff;
+}
+.nav-desktop .btn {
+  margin-left: 8px;
+  color: #fff;
+}
+
+/* Hamburger Toggle (Hidden on Desktop) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  flex-direction: column;
+  gap: 5px;
+}
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu Drawer (Hidden by default) */
+.nav-mobile {
+  position: fixed;
+  top: 70px; /* Adjust based on header height */
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #0f1827;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.nav-mobile.active {
+  height: auto; /* Or set a fixed height like 100vh if preferred */
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.nav-mobile-inner {
+  padding: 20px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Mobile Nav Items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,.05);
+}
+.nav-item .icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+.nav-divider {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin: 10px 0;
+}
+
+.mobile-auth-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.btn.full-width {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+/* Hamburger Animation when Active */
+.nav-toggle.active .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.active .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for fixed header when clicking anchor links */
+section[id] {
+  scroll-margin-top: 100px;
+}
+/* --- THEME TOGGLE & ICONS --- */
+
+/* Default Dark Theme Variables (already in your :root, just ensuring basics) */
+:root {
+  --bg: #0b1220; --panel: #121a2b; --text: #e6f1ff; --muted:#a5b4cf;
+  --border: rgba(255,255,255,.08); --input-bg: #0b1322;
+}
+
+/* Light Mode Variables (Overrides) */
+[data-theme="light"] {
+  --bg: #f8fafc;        /* White-ish background */
+  --panel: #ffffff;     /* Pure white panels */
+  --text: #0f172a;      /* Dark text */
+  --muted: #64748b;     /* Muted grey */
+  --border: #e2e8f0;    /* Light grey border */
+  --input-bg: #f1f5f9;  /* Light grey input background */
+}
+
+/* Apply transitions for smooth switching */
+body, .card, .nav-container, .nav-mobile, input, .btn {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- PASSWORD INPUT FIX (Applied) --- */
+
+/* Wrapper must be relative to hold the absolute icon */
+.password-wrapper {
+  position: relative;
+  width: 100%;  /* Forces wrapper to fill container */
+  margin-bottom: 0; /* Align with standard inputs */
+}
+
+/* Force input to fill the wrapper and match standard styling */
+.password-wrapper input {
+  width: 100% !important;
+  display: block;
+  padding-right: 45px; /* Make room for the eye icon */
+  box-sizing: border-box; /* Ensures padding doesn't widen element */
+}
+
+/* Eye Icon Style (Text Version - Centered) */
+.toggle-password {
+  position: absolute;
+  right: 15px;      /* Distance from right edge */
+  top: 50%;         /* Center vertically */
+  transform: translateY(-50%); /* Perfect center alignment */
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1.2rem;  /* Size for the emoji */
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 5;       /* Ensure it sits on top of the input */
+  user-select: none; /* Prevent selecting the emoji as text */
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: var(--text);
+}
+/* Theme Toggle Button (Nav) */
+.theme-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 1.1rem;
+}
+.theme-btn:hover {
+  background: var(--border);
+}

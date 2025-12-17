@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dash-header">
+    <h2>Admin Control Panel</h2>
+</div>
+
+<div class="cards stats-3">
+    <article class="stat">
+        <span>Total Users</span>
+        <h2>{{ users_count }}</h2>
+    </article>
+    <article class="stat">
+        <span>Total Sales Revenue</span>
+        <h2 style="color:#22c55e;">${{ total_sales }}</h2>
+    </article>
+    <article class="stat">
+        <span>Pending Reviews</span>
+        <h2 style="color:#eab308;">{{ pending_reviews }}</h2>
+    </article>
+     <article class="stat">
+        <span>Active Gift Codes</span>
+        <h2 style="color:#3b82f6;">{{ active_gift_codes }}</h2>
+    </article>
+</div>
+
+<div style="display:flex; gap:10px; margin-bottom:30px; flex-wrap: wrap;">
+    <a href="{{ url_for('core.admin_products') }}" class="btn">Manage Products</a>
+    <a href="{{ url_for('core.admin_wallets') }}" class="btn">Manage Wallets</a>
+    <a href="{{ url_for('core.admin_comments') }}" class="btn" style="background:#0b1322; border:1px solid #eab308; color:#eab308;">⭐ Manage Comments</a>
+    <a href="{{ url_for('core.admin_gift_codes') }}" class="btn" style="background:#0b1322; border:1px solid #3b82f6; color:#3b82f6;">🎁 Manage Gift Codes</a>
+    <a href="{{ url_for('core.admin_settings_site') }}" class="btn" style="background:#0b1322; border:1px solid #a855f7; color:#a855f7;">⚙️ Site Settings (Email/TG)</a>
+</div>
+
+<div class="card" style="margin-bottom: 30px; border: 1px solid #3b82f6;">
+    <h3 style="margin-top:0; color:#3b82f6;">Manage Admin Access</h3>
+    <p style="color:#94a3b8; font-size:0.9rem;">Grant admin privileges to other registered users.</p>
+    
+    <form action="{{ url_for('core.admin_manage_admins') }}" method="POST" style="display:flex; gap:10px; margin-top:15px; max-width:500px;">
+        <input type="hidden" name="action" value="add">
+        <input type="email" name="email" placeholder="Enter user email to make Admin..." required style="flex:1; background:#0b1322; border:1px solid #334155; color:white; padding:10px; border-radius:8px;">
+        <button type="submit" class="btn primary">Add Admin</button>
+    </form>
+
+    <h4 style="margin-top:20px; border-bottom:1px solid #334155; padding-bottom:5px;">Current Admins</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+        {% for admin in admins %}
+        <li style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="color:#e6f1ff;">
+                {{ admin.email }} 
+                {% if admin.email == 'bcapro02@gmail.com' %}
+                    <span style="color:#eab308; font-size:0.8rem; margin-left:5px;">(SUPER ADMIN)</span>
+                {% endif %}
+            </span>
+            
+            {% if admin.email != 'bcapro02@gmail.com' and admin.id != current_user.id %}
+                <form action="{{ url_for('core.admin_manage_admins') }}" method="POST" style="margin:0;">
+                    <input type="hidden" name="action" value="remove">
+                    <input type="hidden" name="email" value="{{ admin.email }}">
+                    <button type="submit" class="btn" style="background:rgba(239,68,68,0.2); color:#fca5a5; border:1px solid #ef4444; padding:4px 10px; font-size:0.8rem;">Remove</button>
+                </form>
+            {% else %}
+                <span style="color:#64748b; font-size:0.8rem;">Protected</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<h3>All User Purchases</h3>
+<div style="overflow-x:auto;">
+    <table class="zebra" style="width:100%; min-width:900px;">
+        <thead>
+            <tr style="background:#1e293b;">
+                <th>Date</th>
+                <th>User</th>
+                <th>Item</th>
+                <th>Key (Password)</th>
+                <th>Recv. Address</th>
+                <th>Amt</th>
+                <th>Status</th>
+                <th>TX Hash</th>
+                <th>Action</th> </tr>
+        </thead>
+        <tbody>
+            {% for p in purchases %}
+            <tr>
+                <td style="font-size:0.85rem; color:#94a3b8;">{{ p.created_at.strftime('%m-%d %H:%M') }}</td>
+                <td>{{ p.user.email }}</td>
+                <td>{{ p.item_name }}</td>
+                
+                <td style="font-family:monospace; font-weight:bold; color:#a78bfa; letter-spacing:1px;">
+                    {{ p.access_code or '-' }}
+                </td>
+
+                <td style="font-family:monospace; color:#cbd5e1; font-size:0.85rem;" title="{{ p.receiving_address }}">
+                    {% if p.receiving_address %}
+                        {{ p.receiving_address[:6] }}...{{ p.receiving_address[-4:] }}
+                        <button onclick="navigator.clipboard.writeText('{{ p.receiving_address }}'); alert('Copied Address!');" style="cursor:pointer; background:none; border:none; color:#3b82f6; font-size:1rem;">📋</button>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+
+                <td style="font-weight:bold;">${{ p.amount_paid }}</td>
+                
+                <td>
+                    {% if p.status == 'Confirmed' %}
+                        <span style="color:#22c55e; font-weight:bold;">● Confirmed</span>
+                    {% else %}
+                        <span style="color:#eab308; font-weight:bold;">● Pending</span>
+                    {% endif %}
+                </td>
+
+                <td style="font-family:monospace; color:#64748b; font-size:0.8rem;" title="{{ p.tx_hash }}">
+                    {% if p.tx_hash %}
+                        {{ p.tx_hash[:6] }}...
+                        <a href="#" onclick="navigator.clipboard.writeText('{{ p.tx_hash }}'); alert('Copied TXID!'); return false;" style="color:#3b82f6;">Copy</a>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if p.status == 'Pending' %}
+                        <form action="{{ url_for('core.admin_approve_purchase', purchase_id=p.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn">Approve</button>
+                        </form>
+                    {% else %}
+                        <span style="color:#64748b;">-</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="9" style="padding:20px; text-align:center; color:#64748b;">No purchases found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

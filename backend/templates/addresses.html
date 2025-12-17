@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+  <div class="dash-header">
+    <h2>📥 Deposit Crypto</h2>
+    <a href="{{ url_for('core.dashboard') }}" class="btn ghost">Back to Dashboard</a>
+  </div>
+
+  <div class="grid" style="margin-bottom:30px;">
+    <div class="card" style="border:1px dashed #3b82f6; background:rgba(59,130,246,0.05);">
+        <h3 style="color:#3b82f6;">Generate New Address</h3>
+        <p style="color:#94a3b8; font-size:0.9rem;">Create a unique address to top up your balance.</p>
+        
+        <form method="POST" action="{{ url_for('core.wallet_addresses_new') }}" style="margin-top:15px;">
+            <select name="network" required style="width:100%; margin-bottom:10px; background:#0f172a; border-color:#334155;">
+              <option value="TRC20">USDT (TRC20) - Tron</option>
+              <option value="ERC20">USDT (ERC20) - Ethereum</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+            </select>
+            <button class="btn primary" type="submit" style="width:100%;">+ Generate Address</button>
+        </form>
+    </div>
+  </div>
+
+  <h3>Your Addresses</h3>
+  <div class="grid">
+    {% for a in addrs %}
+      <article class="card" style="text-align:left; position:relative;">
+        <div class="badge" style="background:#0f172a; border:1px solid #334155; top:15px; right:15px; color:#cbd5e1;">{{ a.network }}</div>
+        
+        <h3 style="margin-top:0; font-size:1.1rem;">{{ a.label or 'Deposit Wallet' }}</h3>
+        
+        <div style="margin:15px 0;">
+            <label style="font-size:0.8rem; margin-bottom:5px;">Wallet Address</label>
+            <div style="background:#0f172a; padding:10px; border-radius:8px; font-family:monospace; word-break:break-all; border:1px solid #334155; color:#e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+                <span>{{ a.address }}</span>
+                <button onclick="navigator.clipboard.writeText('{{ a.address }}'); alert('Address Copied!');" style="background:none; border:none; cursor:pointer; font-size:1.2rem;" title="Copy">📋</button>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:#64748b;">
+            <span>Status: <strong style="color:#22c55e;">Active</strong></span>
+            <span>{{ a.created_at.strftime('%Y-%m-%d') }}</span>
+        </div>
+      </article>
+    {% else %}
+      <div style="grid-column: 1/-1; text-align:center; padding:40px; color:#64748b; background:#1e293b; border-radius:15px;">
+        <p>No deposit addresses found.</p>
+        <p>Generate one above to start funding your account.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

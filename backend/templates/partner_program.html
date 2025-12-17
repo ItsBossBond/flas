@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="container" style="max-width: 800px; text-align: center;">
+  <div class="dash-header">
+    <a href="{{ url_for('core.referrals') }}" class="btn ghost">← Back to Earn</a>
+  </div>
+
+  <div class="card" style="padding: 40px; margin-top: 20px; border: 1px solid #7c3aed; background: linear-gradient(180deg, rgba(124,58,237,0.1), rgba(15,23,42,1));">
+    <div style="font-size: 4rem; margin-bottom: 20px;">🤝</div>
+    <h1 style="color: #fff; margin-bottom: 15px;">Become a Flash Partner</h1>
+    <p style="color: #a5b4cf; font-size: 1.1rem; line-height: 1.6;">
+      Unlock the highest earning potential on our platform. As a partner, you don't just earn on signups — you earn on <strong>every single sale</strong>.
+    </p>
+
+    <div class="grid" style="margin-top: 40px; text-align: left;">
+      <div class="card" style="background: #0b1322; border: 1px solid #334155;">
+        <h3 style="color: #22c55e;">25% Commission</h3>
+        <p style="color: #94a3b8;">For every Flash Plan or Software Tool your referrals purchase, you instantly get 25% of the cost.</p>
+      </div>
+      <div class="card" style="background: #0b1322; border: 1px solid #334155;">
+        <h3 style="color: #38bdf8;">Unlimited Earning</h3>
+        <p style="color: #94a3b8;">There is no cap. If your referral buys a $1,000 tool, you get $250 immediately.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px;">
+      <h3 style="color: #e6f1ff;">How it works</h3>
+      <ol style="text-align: left; color: #a5b4cf; line-height: 1.8; margin: 0 auto; display: inline-block;">
+        <li>Invite friends using your unique link.</li>
+        <li>Your friends register and purchase any Flash Tool or Plan.</li>
+        <li><strong>25% of their payment</strong> is instantly credited to your Referral Balance.</li>
+        <li>Withdraw your earnings to your Main Balance or Crypto Wallet.</li>
+      </ol>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <p style="color: #94a3b8; margin-bottom: 15px;">Your Unique Invite Link:</p>
+      <div style="background:#0b1322; padding:12px; border-radius:10px; border:1px dashed #7c3aed; display:flex; gap:10px; align-items:center;">
+        <input type="text" value="{{ url_for('core.register', ref=current_user.referral_code, _external=True) }}" readonly style="background:none; border:none; color:#a78bfa; flex:1; font-family:monospace; text-align: center;">
+        <button onclick="navigator.clipboard.writeText('{{ url_for('core.register', ref=current_user.referral_code, _external=True) }}'); alert('Link Copied!');" class="btn primary">Copy Link</button>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

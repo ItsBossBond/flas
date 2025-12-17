@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dash-header">
+    <h2>Manage Gift Codes</h2>
+    <a href="{{ url_for('core.admin_dashboard') }}" class="btn ghost">Back</a>
+</div>
+
+<div class="card" style="margin-bottom: 30px; border: 1px solid #3b82f6;">
+    <h3 style="margin-top:0; color:#3b82f6;">Create New Gift Code</h3>
+    <form method="POST" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 15px; align-items: end;">
+        <div>
+            <label style="color:#94a3b8; font-size:0.9rem;">Code (e.g., GIFT50)</label>
+            <input type="text" name="code" required style="width:100%; padding:10px; background:#0b1322; border:1px solid #334155; color:white; border-radius:8px; text-transform: uppercase;">
+        </div>
+        <div>
+            <label style="color:#94a3b8; font-size:0.9rem;">Amount ($)</label>
+            <input type="number" step="0.01" name="amount" required style="width:100%; padding:10px; background:#0b1322; border:1px solid #334155; color:white; border-radius:8px;">
+        </div>
+        <div>
+            <label style="color:#94a3b8; font-size:0.9rem;">Max Uses (How many people)</label>
+            <input type="number" name="max_uses" value="1" min="1" required style="width:100%; padding:10px; background:#0b1322; border:1px solid #334155; color:white; border-radius:8px;">
+        </div>
+        <button type="submit" class="btn primary" style="height: 42px;">Create Code</button>
+    </form>
+</div>
+
+<div style="background:#1e293b; padding:20px; border-radius:15px; overflow-x: auto;">
+    <table class="zebra" style="width:100%;">
+        <thead>
+            <tr style="background:#0f172a; color:#94a3b8;">
+                <th>Created</th>
+                <th>Code</th>
+                <th>Amount</th>
+                <th>Usage</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gc in codes %}
+            <tr>
+                <td style="font-size:0.9rem; color:#64748b;">{{ gc.created_at.strftime('%Y-%m-%d') }}</td>
+                <td style="font-weight:bold; color:#3b82f6; font-family:monospace; font-size:1.1rem;">{{ gc.code }}</td>
+                <td style="font-weight:bold;">${{ gc.amount }}</td>
+                <td>{{ gc.current_uses }} / {{ gc.max_uses }}</td>
+                <td>
+                    {% if gc.is_active and gc.current_uses < gc.max_uses %}
+                        <span style="color:#22c55e; font-weight:bold;">Active</span>
+                    {% else %}
+                        <span style="color:#ef4444; font-weight:bold;">Expired/Used</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('core.admin_delete_gift_code', id=gc.id) }}" class="btn" style="background:#ef4444; border:none; color:white; padding:5px 10px; font-size:0.8rem;" onclick="return confirm('Delete this code permanently?');">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" style="text-align:center; padding:20px; color:#64748b;">No gift codes created yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

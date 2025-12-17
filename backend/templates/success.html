@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width:600px; margin:40px auto;">
+    
+    <div style="text-align:center; margin-bottom:30px;">
+        <div style="font-size:4rem; margin-bottom:10px;">🎉</div>
+        <h1 style="color:#22c55e; margin:0;">Payment Request Submitted!</h1>
+        <p style="color:#94a3b8; font-size:1.1rem;">Your order is currently <span style="color:#eab308; font-weight:bold;">PENDING VERIFICATION</span>.</p>
+    </div>
+
+    <div class="card" style="background:#1e293b; border:1px solid #334155; border-radius:15px; padding:0; overflow:hidden;">
+        <div style="background:#0f172a; padding:15px 25px; border-bottom:1px solid #334155; display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0; color:#fff;">Invoice Details</h3>
+            <span style="font-family:monospace; color:#64748b;">#{{ "%06d" | format(purchase.id) }}</span>
+        </div>
+        
+        <div style="padding:25px;">
+            <table style="width:100%; border-collapse:collapse; color:#cbd5e1;">
+                <tr>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; color:#94a3b8;">Item Bought</td>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; text-align:right; font-weight:bold; color:white;">{{ purchase.item_name }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; color:#94a3b8;">Amount Paid</td>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; text-align:right; font-weight:bold; color:#22c55e;">${{ purchase.amount_paid }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; color:#94a3b8;">Payment Coin</td>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; text-align:right;">{{ purchase.coin }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; color:#94a3b8;">TXID Hash</td>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; text-align:right; font-family:monospace; font-size:0.85rem;" title="{{ purchase.tx_hash }}">
+                        {{ purchase.tx_hash[:10] }}...{{ purchase.tx_hash[-6:] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; color:#94a3b8;">Receive Address</td>
+                    <td style="padding:10px 0; border-bottom:1px solid #334155; text-align:right; font-family:monospace; font-size:0.85rem;" title="{{ purchase.receiving_address }}">
+                        {{ purchase.receiving_address[:10] }}...{{ purchase.receiving_address[-6:] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; color:#94a3b8;">Date</td>
+                    <td style="padding:10px 0; text-align:right;">{{ purchase.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                </tr>
+            </table>
+
+            {% if purchase.access_code %}
+            <div style="margin-top:25px; background:rgba(124,58,237,0.1); border:1px dashed #7c3aed; border-radius:10px; padding:15px; text-align:center;">
+                <p style="margin:0 0 5px 0; color:#a78bfa; font-size:0.9rem;">YOUR ORDER KEY</p>
+                <div style="font-family:monospace; font-size:1.8rem; font-weight:bold; color:#fff; letter-spacing:2px;">
+                    {{ purchase.access_code }}
+                </div>
+            </div>
+            {% endif %}
+
+            <div style="margin-top:25px; text-align:center;">
+                <p style="color:#94a3b8; font-size:1rem; margin-bottom:15px;">
+                    To receive your flash, send a message to:
+                </p>
+                <a href="https://t.me/{{ site_settings.telegram_id|replace('@','') }}" target="_blank" class="btn" style="background:#0088cc; color:white; border:none; padding:12px 25px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.361 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.8-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.008-1.252-.241-1.865-.44-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.119.098.152.228.166.331.016.119.029.351.011.536z"/></svg>
+                    {{ site_settings.telegram_id }}
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="{{ url_for('core.dashboard') }}" class="btn ghost">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

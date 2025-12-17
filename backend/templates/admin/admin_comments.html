@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dash-header">
+    <h2>Manage Community Reviews</h2>
+    <a href="{{ url_for('core.admin_dashboard') }}" class="btn ghost">Back</a>
+</div>
+
+<div style="background:#1e293b; padding:20px; border-radius:15px;">
+    <table class="zebra" style="width:100%;">
+        <thead>
+            <tr style="background:#0f172a; color:#94a3b8;">
+                <th>Date</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in comments %}
+            <tr>
+                <td style="font-size:0.9rem; color:#64748b;">{{ c.created_at.strftime('%Y-%m-%d') }}</td>
+                <td style="font-weight:bold; color:#e6f1ff;">{{ c.author_name }}</td>
+                <td style="color:#cbd5e1; max-width:400px;">{{ c.content }}</td>
+                <td>
+                    {% if c.is_approved %}
+                        <span style="color:#22c55e; font-weight:bold;">Active</span>
+                    {% else %}
+                        <span style="color:#eab308; font-weight:bold;">Pending</span>
+                    {% endif %}
+                </td>
+                <td style="display:flex; gap:10px;">
+                    {% if not c.is_approved %}
+                        <a href="{{ url_for('core.admin_approve_comment', id=c.id) }}" class="btn primary" style="padding:5px 10px; font-size:0.8rem;">Approve</a>
+                    {% endif %}
+                    <a href="{{ url_for('core.admin_delete_comment', id=c.id) }}" class="btn" style="background:#ef4444; border:none; color:white; padding:5px 10px; font-size:0.8rem;" onclick="return confirm('Delete this review?');">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align:center; padding:20px; color:#64748b;">No comments yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-card" style="max-width: 600px;">
+  <div class="dash-header">
+    <h2>⚙️ Account Settings</h2>
+    <a href="{{ url_for('core.dashboard') }}" class="btn ghost">Back to Dashboard</a>
+  </div>
+
+  <div style="background:#0f172a; padding:20px; border-radius:15px; border:1px solid #334155; margin-top:20px;">
+    <h3 style="margin-top:0;">Profile Details</h3>
+    <label>Email Address</label>
+    <input type="text" value="{{ current_user.email }}" disabled style="opacity:0.7; cursor:not-allowed;">
+    <p style="font-size:0.85rem; color:#64748b; margin-top:5px;">To change your email, please contact support.</p>
+  </div>
+
+  <form method="POST" style="background:#0f172a; padding:20px; border-radius:15px; border:1px solid #334155; margin-top:20px;">
+    <h3 style="margin-top:0; color:#e6f1ff;">Change Password</h3>
+    
+    <label>Current Password</label>
+    <input type="password" name="current_password" required placeholder="Enter current password">
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:10px;">
+        <div>
+            <label>New Password</label>
+            <input type="password" name="new_password" required placeholder="New password">
+        </div>
+        <div>
+            <label>Confirm New Password</label>
+            <input type="password" name="confirm_new_password" required placeholder="Confirm new password">
+        </div>
+    </div>
+
+    <div class="form-actions" style="margin-top:20px; text-align:right;">
+      <button class="btn primary" type="submit">Update Password</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Flash USDT" }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body class="theme">
+
+  <header class="nav-container">
+    <div class="nav-content">
+      <a class="brand" href="{{ url_for('core.index') }}">
+        ⚡ FlashUSDT
+      </a>
+
+      <nav class="nav-desktop">
+        {% if current_user.is_authenticated %}
+          {% if current_user.is_admin %}
+            <a href="{{ url_for('core.admin_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('core.admin_products') }}">Products</a>
+            <a href="{{ url_for('core.admin_wallets') }}">Wallets</a>
+          {% else %}
+            <a href="{{ url_for('core.index') }}#about">About</a>
+            <a href="{{ url_for('core.index') }}#features">Features</a>
+            <a href="{{ url_for('core.dashboard') }}">Dashboard</a>
+          {% endif %}
+          
+          <a class="btn" href="{{ url_for('core.logout') }}">Logout</a>
+        
+        {% else %}
+          <a href="{{ url_for('core.index') }}#features">Features</a>
+          <a href="{{ url_for('core.index') }}#how">How it Works</a>
+          <a href="{{ url_for('core.login') }}">Log In</a>
+          <a class="btn primary" href="{{ url_for('core.register') }}">Sign Up</a>
+        {% endif %}
+
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Theme">☀️</button>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+
+    <div class="nav-mobile" id="navMobile">
+      <div class="nav-mobile-inner">
+        {% if current_user.is_authenticated %}
+          <div class="mobile-user-info">
+            <span class="muted">Signed in as:</span><br>
+            <strong>{{ current_user.email }}</strong>
+          </div>
+          <hr class="nav-divider">
+
+          {% if current_user.is_admin %}
+            <a href="{{ url_for('core.admin_dashboard') }}" class="nav-item">
+              <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="{{ url_for('core.admin_products') }}" class="nav-item">
+              <span class="icon">📦</span> Manage Products
+            </a>
+            <a href="{{ url_for('core.admin_wallets') }}" class="nav-item">
+              <span class="icon">💼</span> Manage Wallets
+            </a>
+          {% else %}
+            <a href="{{ url_for('core.dashboard') }}" class="nav-item">
+              <span class="icon">📊</span> Dashboard
+            </a>
+            <a href="{{ url_for('core.index') }}#features" class="nav-item">
+              <span class="icon">🚀</span> Features
+            </a>
+          {% endif %}
+          
+          <hr class="nav-divider">
+          <a href="{{ url_for('core.logout') }}" class="nav-item logout">
+            <span class="icon">🚪</span> Logout
+          </a>
+
+        {% else %}
+          <div class="mobile-auth-buttons">
+            <a href="{{ url_for('core.login') }}" class="btn full-width">Log In</a>
+            <a href="{{ url_for('core.register') }}" class="btn primary full-width">Sign Up</a>
+          </div>
+          <hr class="nav-divider">
+          <a href="{{ url_for('core.index') }}#features" class="nav-item">
+            <span class="icon">🚀</span> Features
+          </a>
+          <a href="{{ url_for('core.index') }}#how" class="nav-item">
+            <span class="icon">💡</span> How it Works
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash">
+        {% for cat, msg in messages %}
+          <div class="flash-item {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 FlashUSDT • <a href="#">Terms</a> • <a href="#">Privacy</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+  <div class="dash-header">
+    <div>
+      <h2 class="dash-title">Affiliate Program</h2>
+      <p class="dash-sub">Invite friends, earn USDT, and withdraw instantly.</p>
+    </div>
+    <a href="{{ url_for('core.dashboard') }}" class="btn ghost">Back to Dashboard</a>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg, #1e293b, #0f172a); border:1px solid #334155; margin-bottom:30px; text-align:center; padding:40px 20px;">
+      <p style="color:#94a3b8; font-size:1.1rem; margin-bottom:10px;">Total Referral Earnings</p>
+      <div style="font-size:3.5rem; font-weight:bold; color:#22c55e; margin-bottom:20px;">
+          ${{ '%.2f'|format(current_user.referral_balance) }}
+      </div>
+      
+      <form action="{{ url_for('core.withdraw_referral') }}" method="POST">
+          <button type="submit" class="btn primary" style="padding:15px 30px; font-size:1.1rem;" 
+          {% if current_user.referral_balance <= 0 %}disabled style="opacity:0.5; cursor:not-allowed;"{% endif %}>
+              Withdraw to Main Balance
+          </button>
+      </form>
+      <p style="color:#64748b; font-size:0.8rem; margin-top:10px;">Max withdrawal limit: $3000 per transaction.</p>
+  </div>
+
+  <div class="grid">
+      <div class="card">
+          <h3 style="color:#e6f1ff;">🔗 Your Invite Link</h3>
+          <p style="color:#94a3b8; font-size:0.9rem;">Share this link to start earning.</p>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+    <a href="{{ url_for('core.partner_program') }}" class="btn" style="background: linear-gradient(135deg, #7c3aed, #db2777); width: 100%; display: block; text-align: center; border: none; color: white; font-weight: bold;">
+        ⭐ Become a Partner (Earn 25% Commission)
+    </a>
+</div>
+          <div style="background:#0b1322; padding:12px; border-radius:10px; border:1px dashed #7c3aed; display:flex; gap:10px; align-items:center; margin-top:15px;">
+              <input type="text" value="{{ ref_link }}" readonly style="background:none; border:none; color:#a78bfa; flex:1; font-family:monospace;">
+              <button onclick="navigator.clipboard.writeText('{{ ref_link }}'); alert('Link Copied!');" class="btn mini">Copy</button>
+          </div>
+      </div>
+
+      <div class="card">
+          <h3 style="color:#e6f1ff;">💰 Commission Rates</h3>
+          <ul style="list-style:none; padding:0; color:#94a3b8; line-height:1.8;">
+              <li style="display:flex; justify-content:space-between; border-bottom:1px solid #334155; padding:5px 0;"><span>Level 1 (Direct)</span> <strong style="color:#22c55e;">$3.00</strong></li>
+              <li style="display:flex; justify-content:space-between; border-bottom:1px solid #334155; padding:5px 0;"><span>Level 2 (Indirect)</span> <strong style="color:#38bdf8;">$1.50</strong></li>
+              <li style="display:flex; justify-content:space-between; padding:5px 0;"><span>Level 3 (Extended)</span> <strong style="color:#a78bfa;">$0.50</strong></li>
+          </ul>
+      </div>
+  </div>
+
+  <h3>Your Network</h3>
+  <div class="cards stats-3">
+      <article class="stat"><span>Level 1 Users</span><h2>{{ l1 }}</h2></article>
+      <article class="stat"><span>Level 2 Users</span><h2>{{ l2 }}</h2></article>
+      <article class="stat"><span>Level 3 Users</span><h2>{{ l3 }}</h2></article>
+  </div>
+</section>
+{% endblock %}

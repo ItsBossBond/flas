@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dash-header">
+    <h2>Manage Products</h2>
+    <a href="{{ url_for('core.admin_dashboard') }}" class="btn ghost">Back</a>
+</div>
+
+<div style="background:#1e293b; padding:20px; border-radius:15px; margin-bottom:30px;">
+    <h3>Add New Product</h3>
+    <form method="POST" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+            <label>Type</label>
+            <select name="type" style="width:100%; padding:10px; background:#0f172a; border:1px solid #334155; color:white;">
+                <option value="flash">Flash Plan</option>
+                <option value="tool">Software Tool</option>
+            </select>
+        </div>
+        <div><label>Title</label><input type="text" name="title" required></div>
+        <div><label>Price ($)</label><input type="number" name="price" required></div>
+        <div><label>Daily Limit (Tools only)</label><input type="text" name="daily_limit" placeholder="e.g. $1000/day"></div>
+        <div style="grid-column: span 2;"><label>Description</label><input type="text" name="desc" required></div>
+        <button type="submit" class="btn primary" style="grid-column: span 2;">Add Product</button>
+    </form>
+</div>
+
+<h3>Existing Products</h3>
+<div class="grid">
+    {% for p in products %}
+    <div class="card">
+        <span class="badge">{{ p.type|upper }}</span>
+        <h4>{{ p.title }}</h4>
+        <p>${{ p.price }}</p>
+        <a href="{{ url_for('core.admin_delete_product', id=p.id) }}" class="btn" style="background:red; border:none; color:white; font-size:0.8rem;">Delete</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

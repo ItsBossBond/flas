@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-box" style="max-width:500px; margin:0 auto;">
+    <h2>Verify Transaction</h2>
+    <p>Confirm purchase of <strong>{{ item.title }}</strong>.</p>
+    
+    <div class="alert" style="background:#1e293b; border:1px solid #3b82f6; font-size:0.9rem; margin-bottom:20px; padding:10px;">
+        Please enter the transaction hash of your payment and the wallet address where you want to receive your Flash USDT.
+    </div>
+
+    <form method="POST">
+        <label style="display:block; color:#94a3b8; font-size:0.9rem;">Transaction Hash (TXID)</label>
+        <input type="text" name="tx_hash" placeholder="Enter TXID..." required style="width:100%; padding:12px; margin:5px 0 15px; background:#0f172a; border:1px solid #334155; color:white; border-radius:8px;">
+        
+        <label style="display:block; color:#22c55e; font-weight:bold; font-size:0.9rem;">Your Receiving Wallet Address</label>
+        <input type="text" name="receiving_address" placeholder="T..." required style="width:100%; padding:12px; margin:5px 0 15px; background:#0f172a; border:2px solid #22c55e; color:white; border-radius:8px;">
+
+        <label style="display:block; color:#94a3b8; font-size:0.9rem;">Amount Sent</label>
+        <input type="number" name="amount" value="{{ item.price }}" readonly required style="width:100%; padding:12px; margin:5px 0 20px; background:#0f172a; border:1px solid #334155; color:#94a3b8; border-radius:8px;">
+        
+        <button type="submit" class="btn primary" style="width:100%; padding:14px; font-size:1.1rem;">Confirm & Send Request</button>
+    </form>
+    
+    <a href="{{ url_for('core.purchase', product_id=item.id, coin=coin) }}" class="btn ghost" style="display:block; text-align:center; margin-top:15px;">Back</a>
+</div>
+{% endblock %}

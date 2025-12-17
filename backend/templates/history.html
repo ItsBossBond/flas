@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+  <h2>History</h2>
+  <p class="muted">All your deposits and purchases.</p>
+
+  <h3>Deposits</h3>
+  <table class="zebra">
+    <thead><tr><th>TX</th><th>Amount</th><th>Status</th><th>Time</th></tr></thead>
+    <tbody>
+      {% for d in deposits %}
+        <tr><td class="mono">{{ d.tx_id }}</td><td>{{ '%.4f'|format(d.amount) }}</td><td>{{ d.status }}</td><td>{{ d.created_at.strftime('%Y-%m-%d %H:%M') }}</td></tr>
+      {% else %}
+        <tr><td colspan="4" class="muted">No deposits yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Purchases</h3>
+  <table class="zebra">
+    <thead><tr><th>Units</th><th>Total</th><th>Time</th></tr></thead>
+    <tbody>
+      {% for p in purchases %}
+        <tr><td>{{ '%.4f'|format(p.units) }}</td><td>{{ '%.4f'|format(p.total_price) }}</td><td>{{ p.created_at.strftime('%Y-%m-%d %H:%M') }}</td></tr>
+      {% else %}
+        <tr><td colspan="3" class="muted">No purchases yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

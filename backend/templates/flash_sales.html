@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+  <div class="dash-header">
+    <h2>⚡ Live Flash Sales</h2>
+    <a href="{{ url_for('core.dashboard') }}" class="btn ghost">Back to Dashboard</a>
+  </div>
+
+  <div class="grid">
+    {% for o in offers %}
+      <article class="card">
+        <div class="badge" style="background:#eab308; color:black; position:absolute; top:10px; right:10px; padding:2px 6px; border-radius:3px; font-weight:bold; font-size:0.75rem;">LIMITED</div>
+        
+        <h3>{{ o.title }}</h3>
+        <p style="color:#94a3b8; margin-bottom:15px; min-height:40px;">{{ o.description }}</p>
+        
+        <div class="meta" style="border-top:1px solid #334155; padding-top:10px; margin-top:10px;">
+          <span>Price: <strong style="color:#22c55e; font-size:1.2rem;">${{ o.price }}</strong></span>
+        </div>
+
+        <div style="margin-top:15px;">
+           <a href="{{ url_for('core.purchase', product_id=o.id) }}" class="btn primary" style="width:100%; display:block; text-align:center;">Buy Now</a>
+        </div>
+      </article>
+    {% else %}
+      <p>No active flash offers at the moment. Check back later!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

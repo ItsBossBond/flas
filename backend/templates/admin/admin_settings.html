@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dash-header">
+    <h2>Site Settings</h2>
+    <a href="{{ url_for('core.admin_dashboard') }}" class="btn ghost">Back</a>
+</div>
+
+<div class="card" style="max-width: 600px; margin: 0 auto; border: 1px solid #a855f7;">
+    <h3 style="margin-top:0; color:#a855f7;">Update Contact Information</h3>
+    <p style="color:#94a3b8; margin-bottom: 20px;">These values will update on the Home Page and Success Page immediately.</p>
+
+    <form method="POST">
+        <div style="margin-bottom: 20px;">
+            <label style="display:block; margin-bottom:8px; color:#e6f1ff;">Official Support Email</label>
+            <input type="email" name="support_email" value="{{ email }}" required style="width:100%; padding:12px; background:#0b1322; border:1px solid #334155; color:white; border-radius:8px;">
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <label style="display:block; margin-bottom:8px; color:#e6f1ff;">Official Telegram ID (e.g. @username)</label>
+            <input type="text" name="telegram_id" value="{{ telegram }}" required style="width:100%; padding:12px; background:#0b1322; border:1px solid #334155; color:white; border-radius:8px;">
+        </div>
+
+        <button type="submit" class="btn primary" style="width: 100%;">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
