@@ -629,3 +629,25 @@ def fix_data():
         flash("ℹ️ Database was already full. No changes made.", "info")
         
     return redirect(url_for('core.dashboard'))
+
+
+# Add these imports at the top if they are missing
+from models import db, User, Product, Wallet, SiteSetting
+from werkzeug.security import generate_password_hash
+
+@bp.route('/secret-reset-db-999')
+def reset_database_route():
+    # 1. Wipe Database
+    db.drop_all()
+    db.create_all()
+    
+    # 2. Add Admin
+    admin = User(email='admin@gmail.com', password_hash=generate_password_hash('admin123'), is_admin=True, balance=10000.0)
+    db.session.add(admin)
+
+    # 3. Add Site Settings
+    db.session.add(SiteSetting(key='support_email', value='admin@flashusdt.com'))
+    db.session.add(SiteSetting(key='telegram_id', value='@v3rfied'))
+    
+    db.session.commit()
+    return "✅ Database has been RESET successfully!"
