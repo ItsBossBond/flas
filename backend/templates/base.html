@@ -4,13 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title or "Flash USDT" }}</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  <!-- LOADER STYLE -->
+  <style>
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 500;
+      z-index: 9999;
+    }
+  </style>
 </head>
+
 <body class="theme">
+
+  <!-- LOADER -->
+  <div id="loader">Loading...</div>
 
   <header class="nav-container">
     <div class="nav-content">
@@ -29,16 +50,13 @@
             <a href="{{ url_for('core.index') }}#features">Features</a>
             <a href="{{ url_for('core.dashboard') }}">Dashboard</a>
           {% endif %}
-          
           <a class="btn" href="{{ url_for('core.logout') }}">Logout</a>
-        
         {% else %}
           <a href="{{ url_for('core.index') }}#features">Features</a>
           <a href="{{ url_for('core.index') }}#how">How it Works</a>
           <a href="{{ url_for('core.login') }}">Log In</a>
           <a class="btn primary" href="{{ url_for('core.register') }}">Sign Up</a>
         {% endif %}
-
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Theme">☀️</button>
       </nav>
 
@@ -76,12 +94,10 @@
               <span class="icon">🚀</span> Features
             </a>
           {% endif %}
-          
           <hr class="nav-divider">
           <a href="{{ url_for('core.logout') }}" class="nav-item logout">
             <span class="icon">🚪</span> Logout
           </a>
-
         {% else %}
           <div class="mobile-auth-buttons">
             <a href="{{ url_for('core.login') }}" class="btn full-width">Log In</a>
@@ -116,5 +132,14 @@
   <footer class="footer">
     <p>© 2025 FlashUSDT • <a href="#">Terms</a> • <a href="#">Privacy</a></p>
   </footer>
+
+  <!-- LOADER SCRIPT -->
+  <script>
+    window.onload = function () {
+      const loader = document.getElementById("loader");
+      if (loader) loader.style.display = "none";
+    };
+  </script>
+
 </body>
 </html>
